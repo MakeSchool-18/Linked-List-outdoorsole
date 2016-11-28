@@ -2,7 +2,6 @@
 
 from __future__ import print_function
 
-
 class Node(object):
 
     def __init__(self, data):
@@ -35,7 +34,6 @@ class LinkedList(object):
         current = self.head
         while current is not None:
             result.append(current.data)
-            # result.append(current)
             current = current.next
         return result
 
@@ -45,28 +43,71 @@ class LinkedList(object):
 
     def length(self):
         """Return the length of this linked list by traversing its nodes"""
-        # TODO: count number of items
-        pass
+        counter = 0
+        current_node = self.head
+        while current_node != None:
+            counter += 1
+            current_node = current_node.next
+        return counter
 
     def append(self, item):
         """Insert the given item at the tail of this linked list"""
-        # TODO: append given item
-        pass
+        if self.head == None:
+            self.head = self.tail = Node(item)
+        else:
+            new_node = Node(item)
+            self.tail.next = new_node
+            self.tail = self.tail.next          
+        return self
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list"""
-        # TODO: prepend given item
-        pass
+        if self.head == None:
+            self.head = self.tail = Node(item)
+        else:
+            new_node = Node(item)
+            new_node.next = self.head
+            self.head = new_node
+        return self
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError"""
         # TODO: find given item and delete if found
-        pass
+        current_node = self.head
+        # Case 1.a: Find the item in the first node
+        if current_node is not None and current_node.data == item:
+            self.head = current_node.next
+            # Case 1.b: The list contains only one node
+            if current_node.next is None:
+                self.tail = current_node.next
+            return True
+        # Case 2.a: Find the item in the second node and onward
+        while current_node is not None and current_node.next != None:
+            if current_node.next.data == item:
+                # Case 2.b: The target node is the last node in the list
+                if current_node.next == self.tail:
+                    self.tail = current_node
+                current_node.next = current_node.next.next
+                return True
+            # Move on to the next node
+            current_node = current_node.next
+        raise ValueError("item was not found in list")
+
+
+    def __findNode(self, quality):
+        """this is a private function: will only use this within the class"""
+        current_node = self.head
+        while current_node != None:
+            if quality(current_node.data):
+                return current_node
+            else: 
+                current_node = current_node.next
+        return None
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality"""
-        # TODO: find item where quality(item) is True
-        pass
+        found_node = self.__findNode(quality)
+        return found_node.data if found_node else None
 
 
 def test_linked_list():
