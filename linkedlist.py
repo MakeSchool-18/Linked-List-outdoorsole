@@ -75,8 +75,14 @@ class LinkedList(object):
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality"""
-        # TODO: find item where quality(item) is True
-        pass
+        current_node = self.head
+        while current_node != None:
+            if quality(current_node.data):
+                return current_node.data
+            else: 
+                current_node = current_node.next
+        return None
+
 
 
 def test_linked_list():
