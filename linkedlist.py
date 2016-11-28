@@ -55,8 +55,7 @@ class LinkedList(object):
     def append(self, item):
         """Insert the given item at the tail of this linked list"""
         if self.head == None:
-            self.head = Node(item)
-            self.tail = self.head
+            self.head = self.tail = Node(item)
         else:
             new_node = Node(item)
             self.tail.next = new_node
@@ -66,7 +65,13 @@ class LinkedList(object):
     def prepend(self, item):
         """Insert the given item at the head of this linked list"""
         # TODO: prepend given item
-        pass
+        if self.head == None:
+            self.head = self.tail = Node(item)
+        else:
+            new_node = Node(item)
+            new_node.next = self.head
+            self.head = new_node
+        return self
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError"""
