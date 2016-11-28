@@ -88,9 +88,7 @@ class LinkedList(object):
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality"""
         found_node = self.__findNode(quality)
-        if found_node:
-            return found_node.data
-        return None
+        found_node.data if found_node else None
 
 
 def test_linked_list():
