@@ -73,7 +73,26 @@ class LinkedList(object):
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError"""
         # TODO: find given item and delete if found
-        pass
+        current_node = self.head
+        # Case 1.a: Find the item in the first node
+        if current_node is not None and current_node.data == item:
+            self.head = current_node.next
+            # Case 1.b: The list contains only one node
+            if current_node.next is None:
+                self.tail = current_node.next
+            return True
+        # Case 2.a: Find the item in the second node and onward
+        while current_node is not None and current_node.next != None:
+            if current_node.next.data == item:
+                # Case 2.b: The target node is the last node in the list
+                if current_node.next == self.tail:
+                    self.tail = current_node
+                current_node.next = current_node.next.next
+                return True
+            # Move on to the next node
+            current_node = current_node.next
+        raise ValueError("item was not found in list")
+
 
     def __findNode(self, quality):
         """this is a private function: will only use this within the class"""
@@ -88,7 +107,7 @@ class LinkedList(object):
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality"""
         found_node = self.__findNode(quality)
-        found_node.data if found_node else None
+        return found_node.data if found_node else None
 
 
 def test_linked_list():
