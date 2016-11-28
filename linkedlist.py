@@ -2,7 +2,6 @@
 
 from __future__ import print_function
 
-
 class Node(object):
 
     def __init__(self, data):
@@ -50,8 +49,14 @@ class LinkedList(object):
 
     def append(self, item):
         """Insert the given item at the tail of this linked list"""
-        # TODO: append given item
-        pass
+        if self.head == None:
+            self.head = Node(item)
+            self.tail = self.head
+        else:
+            new_node = Node(item)
+            self.tail.next = new_node
+            self.tail = self.tail.next          
+        return self
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list"""
