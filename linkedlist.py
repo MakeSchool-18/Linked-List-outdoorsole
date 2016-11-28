@@ -34,7 +34,6 @@ class LinkedList(object):
         current = self.head
         while current is not None:
             result.append(current.data)
-            # result.append(current)
             current = current.next
         return result
 
@@ -44,7 +43,6 @@ class LinkedList(object):
 
     def length(self):
         """Return the length of this linked list by traversing its nodes"""
-        # TODO: count number of items
         counter = 0
         current_node = self.head
         while current_node != None:
@@ -64,7 +62,6 @@ class LinkedList(object):
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list"""
-        # TODO: prepend given item
         if self.head == None:
             self.head = self.tail = Node(item)
         else:
@@ -78,16 +75,22 @@ class LinkedList(object):
         # TODO: find given item and delete if found
         pass
 
-    def find(self, quality):
-        """Return an item from this linked list satisfying the given quality"""
+    def __findNode(self, quality):
+        """this is a private function: will only use this within the class"""
         current_node = self.head
         while current_node != None:
             if quality(current_node.data):
-                return current_node.data
+                return current_node
             else: 
                 current_node = current_node.next
         return None
 
+    def find(self, quality):
+        """Return an item from this linked list satisfying the given quality"""
+        found_node = self.__findNode(quality)
+        if found_node:
+            return found_node.data
+        return None
 
 
 def test_linked_list():
